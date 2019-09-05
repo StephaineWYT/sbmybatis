@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wen.sbmybatis.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="wen.sbmybatis.model.User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" javaType="wen.sbmybatis.enums.GenderEnum"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">id, username, password, gender, nickname</sql>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from user
+    </select>
+
+    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from user where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="wen.sbmybatis.model.User">
+        insert into user (username,password,gender) values (#{username}, #{password}, #{gender})
+    </insert>
+
+    <update id="update" parameterType="wen.sbmybatis.model.User">
+        update user set
+        <if test="username != null">username = #{username},</if>
+        <if test="password != null">password = #{password},</if>
+        nickname = #{nickname} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from user where id = #{id}
+    </delete>
+</mapper>
