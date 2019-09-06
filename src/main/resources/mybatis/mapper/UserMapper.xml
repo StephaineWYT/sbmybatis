@@ -37,4 +37,29 @@
     <delete id="delete" parameterType="java.lang.Long">
         delete from user where id = #{id}
     </delete>
+
+    <!-- 分页查询 -->
+    <sql id="BaseWhereList">
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
+
+        <if test="gender != null and gender != ''">
+            and gender = #{gender}
+        </if>
+    </sql>
+
+    <select id="getList" resultMap="BaseResultMap" parameterType="wen.sbmybatis.param.UserParam">
+        select
+        <include refid="BaseColumnList"/>
+        from user where 1 = 1
+        <include refid="BaseWhereList"/>
+        order by id desc
+        limit #{beginLine}, #{pageSize}
+    </select>
+
+    <select id="getCount" resultType="Integer" parameterType="wen.sbmybatis.param.UserParam">
+        select count(1) from user where 1 = 1
+        <include refid="BaseWhereList"></include>
+    </select>
 </mapper>

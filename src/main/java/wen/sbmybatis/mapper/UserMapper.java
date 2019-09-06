@@ -1,6 +1,7 @@
 package wen.sbmybatis.mapper;
 
 import wen.sbmybatis.model.User;
+import wen.sbmybatis.param.UserParam;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface UserMapper {
 
     void delete(Long id);
 
+    List<User> getList(UserParam userParam);
+
+    int getCount(UserParam userParam);
 }

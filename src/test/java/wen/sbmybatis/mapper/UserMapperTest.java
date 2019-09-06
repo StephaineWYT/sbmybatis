@@ -8,7 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import wen.sbmybatis.enums.GenderEnum;
+import wen.sbmybatis.model.Page;
 import wen.sbmybatis.model.User;
+import wen.sbmybatis.param.UserParam;
 
 import java.util.List;
 
@@ -44,5 +46,24 @@ public class UserMapperTest {
         user.setNickname("papa");
         userMapper.update(user);
         Assert.assertTrue("papa".equals(userMapper.getOne(29L).getNickname()));
+    }
+
+    @Test
+    public void testPage() {
+
+        UserParam userParam = new UserParam();
+        userParam.setGender(GenderEnum.FEMALE.toString());
+        userParam.setCurrentPage(0);
+
+        // 总个数
+        int totalNumber = userMapper.getAll().size();
+        // 总页数
+        int totalPage = totalNumber / (userParam.getPageSize()) + 1;
+        // 数据集
+        List<User> users = userMapper.getList(userParam);
+
+        Page page = new Page(totalPage, totalNumber, users);
+
+        System.out.println(page);
     }
 }
