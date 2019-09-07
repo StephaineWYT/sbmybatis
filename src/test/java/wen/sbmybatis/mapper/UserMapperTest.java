@@ -26,7 +26,7 @@ public class UserMapperTest {
         userMapper.insert(new User("aa", "a123456", GenderEnum.FEMALE));
         userMapper.insert(new User("bb", "b123456", GenderEnum.MALE));
         userMapper.insert(new User("cc", "c123456", GenderEnum.FEMALE));
-        Assert.assertEquals(3, userMapper.getAll().size());
+        Assert.assertEquals(9, userMapper.getAll().size());
     }
 
     @Test
@@ -64,6 +64,10 @@ public class UserMapperTest {
 
         Page page = new Page(totalPage, totalNumber, users);
 
-        System.out.println(page);
+        System.out.println("*****  page info *******");
+        System.out.println(page.getCurrentPage());
+        System.out.println(page.getTotalNumber());
+        System.out.println(page.getTotalPage());
+        System.out.println(page.getList());
     }
 }

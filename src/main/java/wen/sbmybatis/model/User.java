@@ -10,7 +10,6 @@ public class User {
     private GenderEnum gender;
     private String nickname;
 
-
     public User() {
         super();
     }
